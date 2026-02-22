@@ -53,7 +53,7 @@ fake_db = [
         "name": "Son Goku - Kaio-ken",
         "anime": "Dragon Ball Z",
         "price": 75000,
-        "image_url": "placeholder",
+        "image_url": "https://m.media-amazon.com/images/I/7178W7zNisL._AC_SL1500_.jpg",
         "stock": 10
     },
     {
@@ -61,7 +61,7 @@ fake_db = [
         "name": "Naruto Uzumaki - Rasengan",
         "anime": "Naruto Shippuden",
         "price": 70000,
-        "image_url": "placeholder",
+        "image_url": "https://m.media-amazon.com/images/I/61m9-S+6GSL._AC_SL1500_.jpg",
         "stock": 8
     },
     {
@@ -69,7 +69,7 @@ fake_db = [
         "name": "Eren Yeager - Attack Titan",
         "anime": "Attack on Titan",
         "price": 88000,
-        "image_url": "placeholder",
+        "image_url": "https://m.media-amazon.com/images/I/61BndY6Xk7L._AC_SL1500_.jpg",
         "stock": 4
     },
     {
@@ -77,7 +77,7 @@ fake_db = [
         "name": "Tanjiro Kamado - Hinokami Kagura",
         "anime": "Demon Slayer",
         "price": 82000,
-        "image_url": "placeholder",
+        "image_url": "https://m.media-amazon.com/images/I/71YvR5h57LL._AC_SL1500_.jpg",
         "stock": 6
     }
 ]

@@ -1,10 +1,11 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import axios from 'axios';
 
-// --- BASE DE DATOS FALSA (EMBEBIDA) ---
-const fake_db = [
+// --- BASE DE DATOS FALSA (EMBEBIDA COMO FALLBACK) ---
+const fallback_db = [
     {
         "id": 1,
         "name": "Satoru Gojo - Hollow Purple",
@@ -34,7 +35,7 @@ const fake_db = [
         "name": "Son Goku - Kaio-ken",
         "anime": "Dragon Ball Z",
         "price": 75000,
-        "image_url": "placeholder",
+        "image_url": "https://m.media-amazon.com/images/I/7178W7zNisL._AC_SL1500_.jpg",
         "stock": 10
     },
     {
@@ -42,7 +43,7 @@ const fake_db = [
         "name": "Naruto Uzumaki - Rasengan",
         "anime": "Naruto Shippuden",
         "price": 70000,
-        "image_url": "placeholder",
+        "image_url": "https://m.media-amazon.com/images/I/61m9-S+6GSL._AC_SL1500_.jpg",
         "stock": 8
     },
     {
@@ -50,7 +51,7 @@ const fake_db = [
         "name": "Eren Yeager - Attack Titan",
         "anime": "Attack on Titan",
         "price": 88000,
-        "image_url": "placeholder",
+        "image_url": "https://m.media-amazon.com/images/I/61BndY6Xk7L._AC_SL1500_.jpg",
         "stock": 4
     },
     {
@@ -58,7 +59,7 @@ const fake_db = [
         "name": "Tanjiro Kamado - Hinokami Kagura",
         "anime": "Demon Slayer",
         "price": 82000,
-        "image_url": "placeholder",
+        "image_url": "https://m.media-amazon.com/images/I/71YvR5h57LL._AC_SL1500_.jpg",
         "stock": 6
     }
 ];
@@ -71,7 +72,11 @@ const ProductCard = ({ name, anime, price, image }: any) => (
   >
     <div className="h-64 overflow-hidden relative">
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent z-10" />
-      <img src={image} alt={name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+      <img 
+        src={image || "https://placehold.co/400x600/black/cyan?text=Sin+Imagen"} 
+        alt={name} 
+        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+      />
       <span className="absolute top-3 right-3 z-20 bg-cyan-900/80 text-cyan-200 text-[10px] font-bold px-2 py-1 rounded border border-cyan-500/30 uppercase tracking-widest backdrop-blur-md">
         {anime}
       </span>
@@ -89,8 +94,22 @@ const ProductCard = ({ name, anime, price, image }: any) => (
 );
 
 export default function Home() {
-  const products = fake_db;
+  const [products, setProducts] = useState<any[]>(fallback_db);
   const catalogRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('/api/products');
+        if (response.data && Array.isArray(response.data) && response.data.length > 0) {
+          setProducts(response.data);
+        }
+      } catch (error) {
+        console.error("Error al conectar con la API, usando datos locales:", error);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   const scrollToCatalog = () => {
     catalogRef.current?.scrollIntoView({ behavior: 'smooth' });
