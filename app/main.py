@@ -1,11 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import List
+import os
 
 app = FastAPI(title="Ikigai API", version="1.0.0")
 
-# Configuración CORS (Igual que antes)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -14,7 +15,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# 1. Definimos el "Modelo" de una Figura (Qué datos tiene)
 class Product(BaseModel):
     id: int
     name: str
@@ -23,14 +23,13 @@ class Product(BaseModel):
     image_url: str
     stock: int
 
-# 2. Nuestra "Base de Datos" Falsa (Por ahora)
 fake_db = [
     {
         "id": 1,
         "name": "Satoru Gojo - Hollow Purple",
         "anime": "Jujutsu Kaisen",
         "price": 85000,
-        "image_url": "https://i.pinimg.com/736x/32/5a/6a/325a6a090680951a3788753238692634.jpg", # Placeholder
+        "image_url": "https://i.pinimg.com/736x/32/5a/6a/325a6a090680951a3788753238692634.jpg",
         "stock": 5
     },
     {
@@ -48,22 +47,24 @@ fake_db = [
         "price": 60000,
         "image_url": "https://m.media-amazon.com/images/I/61eY27s+1OL._AC_UF894,1000_QL80_.jpg",
         "stock": 10
-    },
-     {
-        "id": 4,
-        "name": "EVA-01 Test Type",
-        "anime": "Evangelion",
-        "price": 120000,
-        "image_url": "https://m.media-amazon.com/images/I/61Nl-Xk+1qL._AC_SL1500_.jpg",
-        "stock": 1
     }
 ]
 
-@app.get("/")
-def read_root():
-    return {"message": "Ikigai API: Sistema de Ventas Activo 🛒"}
-
-# 3. Nuevo Endpoint: Devuelve la lista de productos
+# API Endpoints
 @app.get("/api/products", response_model=List[Product])
 def get_products():
     return fake_db
+
+@app.get("/api/health")
+def health():
+    return {"status": "online"}
+
+# SERVIR EL FRONTEND (Debe ir al final)
+# Verificamos si existe la carpeta 'out' (donde Next.js exporta la web)
+frontend_path = "frontend/out"
+if os.path.exists(frontend_path):
+    app.mount("/", StaticFiles(directory=frontend_path, html=True), name="frontend")
+else:
+    @app.get("/")
+    def read_root():
+        return {"message": "API activa, pero no se encontró el frontend. Verifica el build."}

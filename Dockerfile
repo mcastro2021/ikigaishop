@@ -1,24 +1,32 @@
-# USAR DOCKER ES LA ÚNICA FORMA DE EVITAR EL ERROR DE PYTHON 3.14
+# ETAPA 1: Construcción del Frontend (Node.js)
+FROM node:18-alpine AS frontend-builder
+WORKDIR /frontend-build
+COPY frontend/package*.json ./
+RUN npm install
+COPY frontend/ ./
+RUN npm run build
+
+# ETAPA 2: Servidor Final (Python)
 FROM python:3.11-slim
-
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-
 WORKDIR /app
 
-# Instalamos lo mínimo necesario
+# Instalamos dependencias de sistema
 RUN apt-get update && apt-get install -y \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Instalamos dependencias
+# Instalamos dependencias de Python
 COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
-# Copiamos la app
+# Copiamos el código del Backend
 COPY app ./app
 
+# Copiamos la web construida desde la Etapa 1
+COPY --from=frontend-builder /frontend-build/out ./frontend/out
+
+# Exponemos el puerto
 EXPOSE 8000
 
 # Comando de arranque
