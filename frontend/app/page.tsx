@@ -173,17 +173,6 @@ export default function Home() {
           transition={{ duration: 1 }}
           className="z-10"
         >
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="mb-8"
-          >
-            <span className="px-5 py-2 rounded-full bg-white/5 border border-white/10 text-white text-[10px] font-black tracking-[0.4em] uppercase backdrop-blur-md">
-              Buenos Aires // Argentina
-            </span>
-          </motion.div>
-
           <h1 className="text-6xl md:text-9xl font-black mb-6 tracking-tighter leading-none">
             <span className="text-white block">ANIME</span>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-purple-500 animate-gradient-x">REVOLUTION</span>
