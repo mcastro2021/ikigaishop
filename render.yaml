@@ -1,10 +1,25 @@
 services:
   - type: web
     name: ikigai-backend
-    env: docker          # <--- CAMBIO CLAVE: Ahora es docker
-    dockerContext: ./backend # <--- Le decimos dónde mirar
+    env: docker
+    dockerContext: ./backend
     dockerfilePath: ./backend/Dockerfile
     plan: free
     envVars:
       - key: PORT
         value: 8000
+    autoDeploy: false
+
+  - type: web
+    name: ikigai-frontend
+    env: node
+    buildCommand: cd frontend && npm install && npm run build
+    startCommand: cd frontend && npm start
+    plan: free
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          type: web
+          name: ikigai-backend
+          property: url
+    autoDeploy: false

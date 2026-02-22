@@ -1,0 +1,8 @@
+ikimai/
+__pycache__/
+*.pyc
+.env
+.git
+.gitignore
+venv/
+env/
