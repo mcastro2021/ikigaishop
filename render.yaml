@@ -1,0 +1,35 @@
+services:
+  # 1. EL BACKEND (Python / FastAPI)
+  - type: web
+    name: ikigai-backend
+    env: python
+    region: oregon # O la más cercana disponible en Free/Starter
+    plan: free # Para empezar
+    buildCommand: |
+      cd backend
+      pip install -r requirements.txt
+    startCommand: |
+      cd backend
+      uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+
+  # 2. EL FRONTEND (Node / Next.js)
+  - type: web
+    name: ikigai-frontend
+    env: node
+    plan: free
+    buildCommand: |
+      cd frontend
+      npm install
+      npm run build
+    startCommand: |
+      cd frontend
+      npm start
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          type: web
+          name: ikigai-backend
+          property: url
