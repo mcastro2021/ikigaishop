@@ -2,13 +2,13 @@ services:
   - type: web
     name: ikigai-backend
     env: docker
-    dockerContext: ./backend
+    dockerContext: .
     dockerfilePath: ./backend/Dockerfile
     plan: free
     envVars:
       - key: PORT
         value: 8000
-    autoDeploy: false
+    autoDeploy: true
 
   - type: web
     name: ikigai-frontend
@@ -22,4 +22,4 @@ services:
           type: web
           name: ikigai-backend
           property: url
-    autoDeploy: false
+    autoDeploy: true
