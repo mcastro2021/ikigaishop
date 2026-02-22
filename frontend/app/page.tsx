@@ -35,7 +35,7 @@ const fallback_db = [
         "name": "Satoru Gojo - Unlimited Void",
         "anime": "Jujutsu Kaisen",
         "price": 85000,
-        "image_url": "https://m.media-amazon.com/images/I/51-mK9-fI0L._AC_SL1000_.jpg",
+        "image_url": "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?auto=format&fit=crop&q=80&w=1000",
         "stock": 5
     },
     {
@@ -43,7 +43,7 @@ const fallback_db = [
         "name": "Luffy Gear 5 - Sun God Nika",
         "anime": "One Piece",
         "price": 92000,
-        "image_url": "https://m.media-amazon.com/images/I/61NfI-m-0FL._AC_SL1500_.jpg",
+        "image_url": "https://images.unsplash.com/photo-1615657973599-990d6e048704?auto=format&fit=crop&q=80&w=1000",
         "stock": 2
     },
     {
@@ -51,7 +51,7 @@ const fallback_db = [
         "name": "Chainsaw Man - Pochita Edition",
         "anime": "Chainsaw Man",
         "price": 60000,
-        "image_url": "https://m.media-amazon.com/images/I/61mNnO-9XkL._AC_SL1200_.jpg",
+        "image_url": "https://images.unsplash.com/photo-1681285265437-023a9a1496a7?auto=format&fit=crop&q=80&w=1000",
         "stock": 10
     },
     {
@@ -59,7 +59,7 @@ const fallback_db = [
         "name": "Goku Super Saiyan God",
         "anime": "Dragon Ball Z",
         "price": 75000,
-        "image_url": "https://m.media-amazon.com/images/I/61P20T5C9RL._AC_SL1200_.jpg",
+        "image_url": "https://images.unsplash.com/photo-1534333230407-b755ed46955d?auto=format&fit=crop&q=80&w=1000",
         "stock": 10
     }
 ];

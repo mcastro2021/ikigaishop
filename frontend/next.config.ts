@@ -5,6 +5,8 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true, // Necesario para exportación estática
   },
+  // Nota: rewrites solo funciona en 'next dev', no en 'next export'
+  // Pero ayuda mucho durante el desarrollo
 };
 
 export default nextConfig;

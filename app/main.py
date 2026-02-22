@@ -29,7 +29,7 @@ fake_db = [
         "name": "Satoru Gojo - Hollow Purple",
         "anime": "Jujutsu Kaisen",
         "price": 85000,
-        "image_url": "https://m.media-amazon.com/images/I/51-mK9-fI0L._AC_SL1000_.jpg",
+        "image_url": "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?auto=format&fit=crop&q=80&w=1000",
         "stock": 5
     },
     {
@@ -37,7 +37,7 @@ fake_db = [
         "name": "Monkey D. Luffy - Gear 5",
         "anime": "One Piece",
         "price": 92000,
-        "image_url": "https://m.media-amazon.com/images/I/61NfI-m-0FL._AC_SL1500_.jpg",
+        "image_url": "https://images.unsplash.com/photo-1615657973599-990d6e048704?auto=format&fit=crop&q=80&w=1000",
         "stock": 2
     },
     {
@@ -45,7 +45,7 @@ fake_db = [
         "name": "Denji & Pochita",
         "anime": "Chainsaw Man",
         "price": 60000,
-        "image_url": "https://m.media-amazon.com/images/I/61mNnO-9XkL._AC_SL1200_.jpg",
+        "image_url": "https://images.unsplash.com/photo-1681285265437-023a9a1496a7?auto=format&fit=crop&q=80&w=1000",
         "stock": 10
     },
     {
@@ -53,7 +53,7 @@ fake_db = [
         "name": "Son Goku - Kaio-ken",
         "anime": "Dragon Ball Z",
         "price": 75000,
-        "image_url": "https://m.media-amazon.com/images/I/61P20T5C9RL._AC_SL1200_.jpg",
+        "image_url": "https://images.unsplash.com/photo-1534333230407-b755ed46955d?auto=format&fit=crop&q=80&w=1000",
         "stock": 10
     },
     {
@@ -61,7 +61,7 @@ fake_db = [
         "name": "Naruto Uzumaki - Rasengan",
         "anime": "Naruto Shippuden",
         "price": 70000,
-        "image_url": "https://m.media-amazon.com/images/I/61E-2fXvJNL._AC_SL1200_.jpg",
+        "image_url": "https://images.unsplash.com/photo-1578632292335-df3abbb0d586?auto=format&fit=crop&q=80&w=1000",
         "stock": 8
     },
     {
@@ -69,7 +69,7 @@ fake_db = [
         "name": "Eren Yeager - Attack Titan",
         "anime": "Attack on Titan",
         "price": 88000,
-        "image_url": "https://m.media-amazon.com/images/I/71u9B-lI7ZL._AC_SL1500_.jpg",
+        "image_url": "https://images.unsplash.com/photo-1608889175123-8ee362201f81?auto=format&fit=crop&q=80&w=1000",
         "stock": 4
     },
     {
@@ -77,7 +77,7 @@ fake_db = [
         "name": "Tanjiro Kamado - Hinokami Kagura",
         "anime": "Demon Slayer",
         "price": 82000,
-        "image_url": "https://m.media-amazon.com/images/I/71uIqYF0ZSL._AC_SL1500_.jpg",
+        "image_url": "https://images.unsplash.com/photo-1601850494422-3cf14624b0bb?auto=format&fit=crop&q=80&w=1000",
         "stock": 6
     }
 ]
