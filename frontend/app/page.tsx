@@ -30,7 +30,7 @@ const fake_db = [
         "stock": 10
     },
     {
-        "id": 4,.
+        "id": 4,
         "name": "Son Goku - Kaio-ken",
         "anime": "Dragon Ball Z",
         "price": 75000,
