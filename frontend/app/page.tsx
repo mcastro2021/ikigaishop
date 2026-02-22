@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 
@@ -34,6 +34,7 @@ const ProductCard = ({ name, anime, price, image }: any) => (
 export default function Home() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const catalogRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -51,6 +52,10 @@ export default function Home() {
     fetchProducts();
   }, []);
 
+  const scrollToCatalog = () => {
+    catalogRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <main className="min-h-screen bg-[#050505] text-white selection:bg-cyan-500 selection:text-black font-sans">
       
@@ -62,7 +67,7 @@ export default function Home() {
             <span className="font-bold tracking-widest text-lg">IKIGAI <span className="text-cyan-400">ANIME</span></span>
           </div>
           <div className="hidden md:flex gap-6 text-sm font-medium text-gray-400 uppercase tracking-wide">
-            <a href="#" className="hover:text-white transition-colors">Figuras</a>
+            <a href="#catalog" onClick={(e) => { e.preventDefault(); scrollToCatalog(); }} className="hover:text-white transition-colors">Figuras</a>
             <a href="#" className="hover:text-white transition-colors">Pre-Venta</a>
             <a href="#" className="hover:text-white transition-colors text-cyan-400">Ofertas</a>
           </div>
@@ -95,12 +100,7 @@ export default function Home() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="px-8 py-3 bg-cyan-500 text-black font-bold rounded-full shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:bg-cyan-400 transition-all"
-            onClick={() => {
-            const catalogSection = document.getElementById('catalog');
-            if (catalogSection) {
-              catalogSection.scrollIntoView({ behavior: 'smooth' });
-            }
-          }}
+            onClick={scrollToCatalog}
           >
             VER CATÁLOGO
           </motion.button>
@@ -108,7 +108,7 @@ export default function Home() {
       </section>
 
       {/* PRODUCT GRID */}
-      <section id="catalog" className="max-w-7xl mx-auto px-6 py-20 border-t border-white/5">
+      <section ref={catalogRef} id="catalog" className="max-w-7xl mx-auto px-6 py-20 border-t border-white/5">
         <div className="flex justify-between items-end mb-12">
           <div>
             <h2 className="text-3xl font-bold">Novedades</h2>
