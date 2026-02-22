@@ -1,12 +1,69 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
+import { useRef } from 'react';
 import { motion } from 'framer-motion';
 
-// --- COMPONENTES INTERNOS ---
-// (Podrías moverlos a archivos separados, pero para facilitar el copy-paste los dejo acá)
+// --- BASE DE DATOS FALSA (EMBEBIDA) ---
+const fake_db = [
+    {
+        "id": 1,
+        "name": "Satoru Gojo - Hollow Purple",
+        "anime": "Jujutsu Kaisen",
+        "price": 85000,
+        "image_url": "https://i.pinimg.com/736x/32/5a/6a/325a6a090680951a3788753238692634.jpg",
+        "stock": 5
+    },
+    {
+        "id": 2,
+        "name": "Monkey D. Luffy - Gear 5",
+        "anime": "One Piece",
+        "price": 92000,
+        "image_url": "https://m.media-amazon.com/images/I/61F2Kx+vLWL._AC_SL1500_.jpg",
+        "stock": 2
+    },
+    {
+        "id": 3,
+        "name": "Denji & Pochita",
+        "anime": "Chainsaw Man",
+        "price": 60000,
+        "image_url": "https://m.media-amazon.com/images/I/61eY27s+1OL._AC_UF894,1000_QL80_.jpg",
+        "stock": 10
+    },
+    {
+        "id": 4,.
+        "name": "Son Goku - Kaio-ken",
+        "anime": "Dragon Ball Z",
+        "price": 75000,
+        "image_url": "placeholder",
+        "stock": 10
+    },
+    {
+        "id": 5,
+        "name": "Naruto Uzumaki - Rasengan",
+        "anime": "Naruto Shippuden",
+        "price": 70000,
+        "image_url": "placeholder",
+        "stock": 8
+    },
+    {
+        "id": 6,
+        "name": "Eren Yeager - Attack Titan",
+        "anime": "Attack on Titan",
+        "price": 88000,
+        "image_url": "placeholder",
+        "stock": 4
+    },
+    {
+        "id": 7,
+        "name": "Tanjiro Kamado - Hinokami Kagura",
+        "anime": "Demon Slayer",
+        "price": 82000,
+        "image_url": "placeholder",
+        "stock": 6
+    }
+];
 
+// --- COMPONENTES INTERNOS ---
 const ProductCard = ({ name, anime, price, image }: any) => (
   <motion.div 
     whileHover={{ y: -10 }}
@@ -32,25 +89,8 @@ const ProductCard = ({ name, anime, price, image }: any) => (
 );
 
 export default function Home() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const products = fake_db;
   const catalogRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        // Ajustamos la URL para que funcione tanto en Local como en Prod
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:8000';
-        const response = await axios.get(`${apiUrl}/api/products`);
-        setProducts(response.data);
-      } catch (error) {
-        console.error("Error cargando productos:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchProducts();
-  }, []);
 
   const scrollToCatalog = () => {
     catalogRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -116,25 +156,17 @@ export default function Home() {
           </div>
         </div>
 
-        {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[1,2,3,4].map(i => (
-              <div key={i} className="h-80 bg-gray-900/50 rounded-xl animate-pulse"></div>
-            ))}
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {products.map((product: any) => (
-              <ProductCard 
-                key={product.id}
-                name={product.name}
-                anime={product.anime}
-                price={product.price}
-                image={product.image_url}
-              />
-            ))}
-          </div>
-        )}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {products.map((product: any) => (
+            <ProductCard 
+              key={product.id}
+              name={product.name}
+              anime={product.anime}
+              price={product.price}
+              image={product.image_url}
+            />
+          ))}
+        </div>
       </section>
     </main>
   );
