@@ -12,11 +12,10 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Copiamos el requirements que ahora está tanto en raíz como en backend
-# para asegurar que Docker siempre lo encuentre
+# Copiamos el requirements que usa Pydantic v1 para evitar compilación de Rust
 COPY backend/requirements.txt ./requirements.txt
 
-# Instalamos dependencias (forzando binarios para evitar compilación de Rust)
+# Instalamos dependencias
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
