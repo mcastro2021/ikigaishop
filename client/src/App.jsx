@@ -1,7 +1,5 @@
-'use client';
-
 import { useRef, useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import axios from 'axios';
 
 // --- LOGO COMPONENT ---
@@ -28,7 +26,7 @@ const Logo = () => (
   </div>
 );
 
-// --- FALLBACK DB CON LINKS MÁS FIABLES ---
+// --- FALLBACK DB ---
 const fallback_db = [
     {
         "id": 1,
@@ -85,7 +83,7 @@ const GokuAnimation = () => (
   </motion.div>
 );
 
-const ProductCard = ({ name, anime, price, image, index }: any) => (
+const ProductCard = ({ name, anime, price, image, index }) => (
   <motion.div 
     initial={{ opacity: 0, y: 20 }}
     whileInView={{ opacity: 1, y: 0 }}
@@ -100,7 +98,7 @@ const ProductCard = ({ name, anime, price, image, index }: any) => (
         src={image} 
         alt={name} 
         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" 
-        onError={(e: any) => e.target.src = "https://placehold.co/400x600/0a0a0a/06b6d4?text=IKIGAI+ANIME"}
+        onError={(e) => e.target.src = "https://placehold.co/400x600/0a0a0a/06b6d4?text=IKIGAI+ANIME"}
       />
       <div className="absolute top-4 left-4 z-20">
         <span className="bg-black/50 backdrop-blur-md text-cyan-400 text-[10px] font-black px-3 py-1 rounded-full border border-cyan-500/30 uppercase tracking-[0.2em]">
@@ -126,9 +124,9 @@ const ProductCard = ({ name, anime, price, image, index }: any) => (
   </motion.div>
 );
 
-export default function Home() {
-  const [products, setProducts] = useState<any[]>(fallback_db);
-  const catalogRef = useRef<HTMLElement>(null);
+function App() {
+  const [products, setProducts] = useState(fallback_db);
+  const catalogRef = useRef(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -247,7 +245,7 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {products.map((product: any, index: number) => (
+          {products.map((product, index) => (
             <ProductCard 
               key={product.id}
               index={index}
@@ -277,3 +275,5 @@ export default function Home() {
     </main>
   );
 }
+
+export default App;

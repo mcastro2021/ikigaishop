@@ -1,29 +1,16 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
-from typing import List
-import os
+const express = require('express');
+const cors = require('cors');
+const dotenv = require('dotenv');
 
-app = FastAPI(title="Ikigai API", version="1.0.0")
+dotenv.config();
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+const app = express();
+const PORT = process.env.PORT || 5000;
 
-class Product(BaseModel):
-    id: int
-    name: str
-    anime: str
-    price: int
-    image_url: str
-    stock: int
+app.use(cors());
+app.use(express.json());
 
-fake_db = [
+const fakeDb = [
     {
         "id": 1,
         "name": "Satoru Gojo - Hollow Purple",
@@ -80,23 +67,25 @@ fake_db = [
         "image_url": "https://images.unsplash.com/photo-1601850494422-3cf14624b0bb?auto=format&fit=crop&q=80&w=1000",
         "stock": 6
     }
-]
+];
 
-# API Endpoints
-@app.get("/api/products", response_model=List[Product])
-def get_products():
-    return fake_db
+// API Endpoints
+app.get('/api/products', (req, res) => {
+    res.json(fakeDb);
+});
 
-@app.get("/api/health")
-def health():
-    return {"status": "online"}
+app.get('/api/health', (req, res) => {
+    res.json({ status: "online" });
+});
 
-# SERVIR EL FRONTEND (Debe ir al final)
-# Verificamos si existe la carpeta 'out' (donde Next.js exporta la web)
-frontend_path = "frontend/out"
-if os.path.exists(frontend_path):
-    app.mount("/", StaticFiles(directory=frontend_path, html=True), name="frontend")
-else:
-    @app.get("/")
-    def read_root():
-        return {"message": "API activa, pero no se encontró el frontend. Verifica el build."}
+// Serve static files from the React app
+const path = require('path');
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
+
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});

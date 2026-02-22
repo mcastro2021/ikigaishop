@@ -1,11 +1,12 @@
 services:
   - type: web
-    name: ikigai-shop-fullstack
-    env: docker
-    dockerContext: .
-    dockerfilePath: Dockerfile
+    name: ikigai-shop
+    env: node
     plan: free
+    buildCommand: npm install && cd client && npm install && npm run build
+    startCommand: npm start
     envVars:
+      - key: NODE_VERSION
+        value: 20
       - key: PORT
-        value: 8000
-    autoDeploy: true
+        value: 10000
