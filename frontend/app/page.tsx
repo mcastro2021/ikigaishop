@@ -35,7 +35,7 @@ const fallback_db = [
         "name": "Satoru Gojo - Unlimited Void",
         "anime": "Jujutsu Kaisen",
         "price": 85000,
-        "image_url": "https://images.unsplash.com/photo-1618336753974-aae8e04506aa?q=80&w=1000&auto=format&fit=crop",
+        "image_url": "https://m.media-amazon.com/images/I/51-mK9-fI0L._AC_SL1000_.jpg",
         "stock": 5
     },
     {
@@ -43,7 +43,7 @@ const fallback_db = [
         "name": "Luffy Gear 5 - Sun God Nika",
         "anime": "One Piece",
         "price": 92000,
-        "image_url": "https://images.unsplash.com/photo-1613333151422-7917737c7af1?q=80&w=1000&auto=format&fit=crop",
+        "image_url": "https://m.media-amazon.com/images/I/61NfI-m-0FL._AC_SL1500_.jpg",
         "stock": 2
     },
     {
@@ -51,7 +51,7 @@ const fallback_db = [
         "name": "Chainsaw Man - Pochita Edition",
         "anime": "Chainsaw Man",
         "price": 60000,
-        "image_url": "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=1000&auto=format&fit=crop",
+        "image_url": "https://m.media-amazon.com/images/I/61mNnO-9XkL._AC_SL1200_.jpg",
         "stock": 10
     },
     {
@@ -59,12 +59,32 @@ const fallback_db = [
         "name": "Goku Super Saiyan God",
         "anime": "Dragon Ball Z",
         "price": 75000,
-        "image_url": "https://images.unsplash.com/photo-1534333237741-03919e82db9a?q=80&w=1000&auto=format&fit=crop",
+        "image_url": "https://m.media-amazon.com/images/I/61P20T5C9RL._AC_SL1200_.jpg",
         "stock": 10
     }
 ];
 
 // --- COMPONENTES INTERNOS ---
+const GokuAnimation = () => (
+  <motion.div
+    animate={{ 
+      rotateY: [0, 360],
+      y: [0, -20, 0],
+    }}
+    transition={{ 
+      rotateY: { duration: 8, repeat: Infinity, ease: "linear" },
+      y: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+    }}
+    className="absolute z-0 opacity-20 pointer-events-none"
+  >
+    <img 
+      src="https://pngimg.com/uploads/goku/goku_PNG37.png" 
+      alt="Goku" 
+      className="w-[300px] md:w-[600px] grayscale brightness-50 contrast-125"
+    />
+  </motion.div>
+);
+
 const ProductCard = ({ name, anime, price, image, index }: any) => (
   <motion.div 
     initial={{ opacity: 0, y: 20 }}
@@ -155,6 +175,8 @@ export default function Home() {
       <section className="relative h-screen flex flex-col justify-center items-center text-center px-4 overflow-hidden pt-20">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.1),transparent_50%)]" />
         
+        <GokuAnimation />
+
         {/* Elementos Flotantes de Animación */}
         <motion.div 
           animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }}
