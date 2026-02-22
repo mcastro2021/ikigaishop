@@ -95,7 +95,12 @@ export default function Home() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="px-8 py-3 bg-cyan-500 text-black font-bold rounded-full shadow-[0_0_20px_rgba(6,182,212,0.4)] hover:bg-cyan-400 transition-all"
-            onClick={() => window.scrollTo({ top: 800, behavior: 'smooth' })}
+            onClick={() => {
+            const catalogSection = document.getElementById('catalog');
+            if (catalogSection) {
+              catalogSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }}
           >
             VER CATÁLOGO
           </motion.button>
@@ -103,7 +108,7 @@ export default function Home() {
       </section>
 
       {/* PRODUCT GRID */}
-      <section className="max-w-7xl mx-auto px-6 py-20 border-t border-white/5">
+      <section id="catalog" className="max-w-7xl mx-auto px-6 py-20 border-t border-white/5">
         <div className="flex justify-between items-end mb-12">
           <div>
             <h2 className="text-3xl font-bold">Novedades</h2>
