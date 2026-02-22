@@ -1,9 +1,20 @@
-# ETAPA 1: Construcción del Frontend (Node.js)
-FROM node:18-alpine AS frontend-builder
+# ETAPA 1: Construcción del Frontend (Node.js con soporte nativo)
+FROM node:20-slim AS frontend-builder
 WORKDIR /frontend-build
+
+# Instalamos herramientas básicas de construcción por si acaso
+RUN apt-get update && apt-get install -y python3 make g++ && rm -rf /var/lib/apt/lists/*
+
+# Copiamos solo el package.json para aprovechar la caché
 COPY frontend/package*.json ./
-RUN npm install
+
+# Forzamos una instalación limpia ignorando el lock si hay conflictos
+RUN npm install --include=dev
+
+# Copiamos el resto del código del frontend
 COPY frontend/ ./
+
+# Construimos la web
 RUN npm run build
 
 # ETAPA 2: Servidor Final (Python)
@@ -23,7 +34,7 @@ RUN pip install --no-cache-dir --upgrade pip && \
 # Copiamos el código del Backend
 COPY app ./app
 
-# Copiamos la web construida desde la Etapa 1
+# Copiamos la web construida desde la Etapa 1 al lugar donde Python la servirá
 COPY --from=frontend-builder /frontend-build/out ./frontend/out
 
 # Exponemos el puerto
