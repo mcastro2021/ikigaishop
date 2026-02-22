@@ -47,6 +47,38 @@ fake_db = [
         "price": 60000,
         "image_url": "https://m.media-amazon.com/images/I/61eY27s+1OL._AC_UF894,1000_QL80_.jpg",
         "stock": 10
+    },
+    {
+        "id": 4,
+        "name": "Son Goku - Kaio-ken",
+        "anime": "Dragon Ball Z",
+        "price": 75000,
+        "image_url": "placeholder",
+        "stock": 10
+    },
+    {
+        "id": 5,
+        "name": "Naruto Uzumaki - Rasengan",
+        "anime": "Naruto Shippuden",
+        "price": 70000,
+        "image_url": "placeholder",
+        "stock": 8
+    },
+    {
+        "id": 6,
+        "name": "Eren Yeager - Attack Titan",
+        "anime": "Attack on Titan",
+        "price": 88000,
+        "image_url": "placeholder",
+        "stock": 4
+    },
+    {
+        "id": 7,
+        "name": "Tanjiro Kamado - Hinokami Kagura",
+        "anime": "Demon Slayer",
+        "price": 82000,
+        "image_url": "placeholder",
+        "stock": 6
     }
 ]
 
