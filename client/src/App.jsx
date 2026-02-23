@@ -61,57 +61,119 @@ const GraphicalBackground = () => {
   );
 };
 
+// --- PRODUCT DETAIL MODAL ---
+const ProductDetail = ({ product, onClose }) => {
+  if (!product) return null;
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[100] flex items-center justify-center p-6 md:p-20"
+    >
+      <div className="absolute inset-0 bg-black/90 backdrop-blur-3xl" onClick={onClose} />
+      <motion.div 
+        initial={{ scale: 0.9, y: 50, opacity: 0 }}
+        animate={{ scale: 1, y: 0, opacity: 1 }}
+        exit={{ scale: 0.9, y: 50, opacity: 0 }}
+        className="relative bg-[#0a0a0a] border border-white/10 w-full max-w-6xl rounded-[3rem] overflow-hidden flex flex-col md:flex-row shadow-[0_0_100px_rgba(6,182,212,0.15)]"
+      >
+        <button 
+          onClick={onClose}
+          className="absolute top-8 right-8 z-50 h-12 w-12 bg-white/5 rounded-full flex items-center justify-center hover:bg-white/10 text-white transition-all"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </button>
+
+        {/* Image Section */}
+        <div className="w-full md:w-1/2 h-[400px] md:h-auto bg-black relative">
+          <img 
+            src={product.image_url} 
+            alt={product.name}
+            className="w-full h-full object-cover"
+            onError={(e) => { e.target.style.display = 'none'; }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-60" />
+        </div>
+
+        {/* Content Section */}
+        <div className="w-full md:w-1/2 p-10 md:p-20 flex flex-col justify-center">
+          <span className="text-cyan-500 text-xs font-black uppercase tracking-[0.5em] mb-4">{product.anime} // AUTHENTIC</span>
+          <h2 className="text-4xl md:text-6xl font-black italic text-white mb-8 tracking-tighter leading-tight">{product.name}</h2>
+          <p className="text-gray-400 text-lg leading-relaxed mb-10 font-medium">{product.description}</p>
+          
+          <div className="grid grid-cols-2 gap-10 mb-10 border-y border-white/5 py-10">
+            <div>
+              <p className="text-[10px] text-gray-500 uppercase tracking-[0.3em] font-black mb-2">Precio Coleccionista</p>
+              <p className="text-5xl font-black text-white italic tracking-tighter">
+                <span className="text-cyan-500 text-2xl mr-1">$</span>{product.price.toLocaleString('es-AR')}
+              </p>
+            </div>
+            <div>
+              <p className="text-[10px] text-gray-500 uppercase tracking-[0.3em] font-black mb-2">Disponibilidad</p>
+              <p className="text-2xl font-bold text-cyan-400">{product.stock > 0 ? `${product.stock} Unidades` : 'Out of Stock'}</p>
+            </div>
+          </div>
+
+          <button className="w-full py-8 bg-cyan-500 text-black font-black uppercase tracking-[0.4em] rounded-[2rem] hover:bg-white transition-all shadow-2xl shadow-cyan-500/20 active:scale-95">
+            Reservar Ahora
+          </button>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
 // --- PRODUCT CARD COMPONENT ---
-const ProductCard = ({ name, anime, price, image, index }) => {
+const ProductCard = ({ product, index, onClick }) => {
   const [imgError, setImgError] = useState(false);
   const [imgLoaded, setImgLoaded] = useState(false);
 
   return (
     <motion.div 
+      layout
       initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ delay: (index % 4) * 0.1, duration: 0.8 }}
-      viewport={{ once: true }}
-      className="group relative bg-[#0a0a0a] border border-white/10 rounded-[2rem] overflow-hidden hover:border-cyan-500/30 transition-all duration-500 shadow-2xl"
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.9 }}
+      transition={{ delay: (index % 4) * 0.05, duration: 0.5 }}
+      onClick={() => onClick(product)}
+      className="group relative bg-[#0a0a0a] border border-white/10 rounded-[2rem] overflow-hidden hover:border-cyan-500/30 transition-all duration-500 shadow-2xl cursor-pointer"
     >
-      <div className="h-[400px] relative overflow-hidden bg-black">
+      <div className="h-[350px] relative overflow-hidden bg-black">
         {!imgError ? (
           <motion.img 
-            src={image} 
-            alt={name}
+            src={product.image_url} 
+            alt={product.name}
             onLoad={() => setImgLoaded(true)}
             onError={() => setImgError(true)}
             className={`w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out ${imgLoaded ? 'opacity-100' : 'opacity-0'}`}
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-[#050505] to-[#111] flex flex-col items-center justify-center p-8 text-center border-b border-white/5">
-            <div className="w-12 h-1 bg-cyan-500 mb-6 opacity-50" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#050505] to-[#111] flex flex-col items-center justify-center p-8 text-center">
             <h4 className="text-lg font-black italic text-white/40 uppercase tracking-tighter leading-none mb-2">
-              {name.split(' ').slice(0, 3).join(' ')}
+              {product.name.split(' ').slice(0, 3).join(' ')}
             </h4>
-            <p className="text-[9px] text-cyan-500/30 font-black uppercase tracking-[0.4em]">Collector Edition</p>
+            <p className="text-[9px] text-cyan-500/30 font-black uppercase tracking-[0.4em]">Masterpiece Edition</p>
           </div>
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-80" />
         <div className="absolute top-6 right-6">
           <span className="bg-black/60 backdrop-blur-md text-cyan-400 text-[9px] font-black px-4 py-2 rounded-full border border-white/10 uppercase tracking-[0.2em]">
-            {anime}
+            {product.anime}
           </span>
         </div>
       </div>
 
       <div className="p-8">
-        <h3 className="text-xl font-bold text-white mb-6 group-hover:text-cyan-400 transition-colors line-clamp-1 italic">{name}</h3>
+        <h3 className="text-xl font-bold text-white mb-6 group-hover:text-cyan-400 transition-colors line-clamp-1 italic">{product.name}</h3>
         <div className="flex justify-between items-center">
-          <div className="flex flex-col">
-            <span className="text-[9px] text-gray-600 uppercase tracking-[0.3em] font-black mb-1">Price</span>
-            <p className="text-3xl font-black text-white italic tracking-tighter">
-              <span className="text-cyan-500 text-lg mr-1">$</span>{price.toLocaleString('es-AR')}
-            </p>
+          <p className="text-3xl font-black text-white italic tracking-tighter">
+            <span className="text-cyan-500 text-lg mr-1">$</span>{product.price.toLocaleString('es-AR')}
+          </p>
+          <div className="h-10 w-10 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-cyan-500 group-hover:text-black transition-all">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </div>
-          <button className="h-12 w-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-cyan-500 hover:text-black transition-all">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M12 5v14M5 12h14"/></svg>
-          </button>
         </div>
       </div>
     </motion.div>
@@ -120,7 +182,10 @@ const ProductCard = ({ name, anime, price, image, index }) => {
 
 function App() {
   const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [activeFilter, setActiveFilter] = useState("All Items");
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const catalogRef = useRef(null);
   const { scrollYProgress } = useScroll();
   const titleY = useTransform(scrollYProgress, [0, 0.3], [0, -100]);
@@ -130,17 +195,29 @@ function App() {
     const fetchProducts = async () => {
       try {
         const response = await axios.get('/api/products');
-        if (response.data && Array.isArray(response.data) && response.data.length > 0) {
+        if (response.data && Array.isArray(response.data)) {
           setProducts(response.data);
+          setFilteredProducts(response.data);
         }
       } catch (error) {
-        console.error("Connection error loading catalog");
+        console.error("API error");
       } finally {
         setTimeout(() => setLoading(false), 800);
       }
     };
     fetchProducts();
   }, []);
+
+  // Filtering Logic
+  useEffect(() => {
+    if (activeFilter === "All Items") {
+      setFilteredProducts(products);
+    } else {
+      setFilteredProducts(products.filter(p => p.anime === activeFilter));
+    }
+  }, [activeFilter, products]);
+
+  const categories = ["All Items", ...new Set(products.map(p => p.anime))];
 
   const scrollToCatalog = () => {
     catalogRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -151,14 +228,8 @@ function App() {
       <div className="h-screen w-full bg-[#050505] flex flex-col items-center justify-center gap-6">
         <Logo />
         <div className="h-1 w-48 bg-white/5 rounded-full overflow-hidden">
-          <motion.div 
-            initial={{ x: "-100%" }}
-            animate={{ x: "100%" }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-            className="h-full w-1/2 bg-cyan-500 shadow-[0_0_20px_rgba(6,182,212,0.8)]"
-          />
+          <motion.div initial={{ x: "-100%" }} animate={{ x: "100%" }} transition={{ repeat: Infinity, duration: 1.5 }} className="h-full w-1/2 bg-cyan-500" />
         </div>
-        <p className="text-[10px] font-black uppercase tracking-[0.6em] text-cyan-500/50">Initializing Core Systems...</p>
       </div>
     );
   }
@@ -166,160 +237,86 @@ function App() {
   return (
     <main className="min-h-screen bg-[#050505] text-white selection:bg-cyan-500 selection:text-black font-sans overflow-x-hidden">
       
-      {/* GLOBAL OVERLAYS */}
-      <div className="fixed inset-0 pointer-events-none z-[1]">
-        <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-[#050505] to-transparent opacity-80" />
-        <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#050505] to-transparent opacity-80" />
-        <div className="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-cyan-500/10 blur-[180px] rounded-full" />
-        <div className="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] bg-purple-500/10 blur-[180px] rounded-full" />
-      </div>
+      <AnimatePresence>
+        {selectedProduct && (
+          <ProductDetail product={selectedProduct} onClose={() => setSelectedProduct(null)} />
+        )}
+      </AnimatePresence>
 
       {/* NAVBAR */}
-      <nav className="fixed w-full z-50 px-10 py-8">
-        <div className="max-w-7xl mx-auto flex justify-between items-center bg-black/40 backdrop-blur-3xl px-10 h-24 rounded-[2rem] border border-white/10 shadow-2xl">
+      <nav className="fixed w-full z-50 px-6 md:px-10 py-8">
+        <div className="max-w-7xl mx-auto flex justify-between items-center bg-black/40 backdrop-blur-3xl px-6 md:px-10 h-24 rounded-[2rem] border border-white/10">
           <Logo />
           <div className="hidden lg:flex gap-16 text-[11px] font-black uppercase tracking-[0.5em] text-white/60">
-            <a href="#catalog" onClick={(e) => { e.preventDefault(); scrollToCatalog(); }} className="hover:text-cyan-400 transition-all hover:tracking-[0.7em]">Catálogo</a>
-            <a href="#" className="hover:text-cyan-400 transition-all hover:tracking-[0.7em]">Exclusivos</a>
-            <a href="#" className="text-cyan-400">Pre-Order</a>
+            <a href="#catalog" onClick={(e) => { e.preventDefault(); scrollToCatalog(); }} className="hover:text-cyan-400 transition-all">Catálogo</a>
+            <a href="#" className="hover:text-cyan-400 transition-all">Exclusivos</a>
           </div>
           <div className="flex items-center gap-6">
-            <button className="bg-white/5 p-4 rounded-2xl hover:bg-cyan-500 hover:text-black transition-all border border-white/10">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-            </button>
             <button className="relative group p-4 bg-white/10 rounded-2xl hover:bg-cyan-500 transition-all border border-white/20">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:text-black"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
-              <span className="absolute -top-2 -right-2 bg-white text-black text-[10px] font-black h-6 w-6 flex items-center justify-center rounded-xl border-4 border-black group-hover:bg-black group-hover:text-white transition-colors">{products.length}</span>
+              <span className="absolute -top-2 -right-2 bg-white text-black text-[10px] font-black h-6 w-6 flex items-center justify-center rounded-xl">{products.length}</span>
             </button>
           </div>
         </div>
       </nav>
 
       {/* HERO SECTION */}
-      <section className="relative h-[120vh] flex flex-col justify-center items-center text-center px-10 overflow-hidden">
+      <section className="relative h-[110vh] flex flex-col justify-center items-center text-center px-10">
         <GraphicalBackground />
-        
-        <motion.div 
-          style={{ y: titleY, opacity }}
-          className="z-10 relative mt-20"
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            className="flex items-center justify-center gap-4 mb-10"
-          >
-             <div className="h-px w-12 bg-cyan-500/50" />
-             <span className="text-cyan-400 text-xs font-black tracking-[1em] uppercase">The Ultimate Collection</span>
-             <div className="h-px w-12 bg-cyan-500/50" />
-          </motion.div>
-
-          <h1 className="text-[10vw] md:text-[14vw] font-black mb-10 tracking-[-0.05em] leading-[0.75] select-none italic">
-            <span className="text-white block drop-shadow-[0_20px_50px_rgba(0,0,0,0.5)]">ANIME</span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-br from-cyan-300 via-white to-purple-600 animate-gradient-x drop-shadow-[0_0_80px_rgba(6,182,212,0.4)]">REVOLUTION</span>
+        <motion.div style={{ y: titleY, opacity }} className="z-10 relative">
+          <h1 className="text-[12vw] font-black mb-10 tracking-[-0.05em] leading-[0.8] select-none italic">
+            <span className="text-white block">ANIME</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-br from-cyan-300 via-white to-purple-600">REVOLUTION</span>
           </h1>
-
-          <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-20 font-medium tracking-tight leading-relaxed opacity-80">
-            Descubre piezas maestras de ingeniería japonesa. Cada figura es una obra de arte original certificada para coleccionistas de élite.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-10 justify-center items-center">
-            <motion.button 
-              whileHover={{ scale: 1.05, boxShadow: "0 0 80px rgba(6,182,212,0.5)" }}
-              whileTap={{ scale: 0.95 }}
-              onClick={scrollToCatalog}
-              className="group px-16 py-8 bg-cyan-500 text-black font-black text-sm rounded-[2rem] transition-all relative overflow-hidden shadow-2xl"
-            >
-              <span className="relative z-10 tracking-[0.4em] uppercase">Explorar Drop 01</span>
-              <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 opacity-20" />
-            </motion.button>
-            <button className="px-16 py-8 bg-white/5 hover:bg-white/10 text-white font-black text-sm rounded-[2rem] transition-all border border-white/10 tracking-[0.4em] uppercase backdrop-blur-3xl shadow-2xl">
-              Limited Edition
-            </button>
-          </div>
-        </motion.div>
-
-        <motion.div 
-          animate={{ y: [0, 20, 0] }}
-          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-20 left-1/2 -translate-x-1/2 text-cyan-500/50 cursor-pointer p-4 hover:text-cyan-400 transition-colors"
-          onClick={scrollToCatalog}
-        >
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+          <button onClick={scrollToCatalog} className="px-16 py-8 bg-cyan-500 text-black font-black text-sm rounded-[2rem] tracking-[0.4em] uppercase hover:shadow-[0_0_50px_rgba(6,182,212,0.5)] transition-all">
+            Explorar Catálogo
+          </button>
         </motion.div>
       </section>
 
       {/* CATALOG SECTION */}
-      <section ref={catalogRef} id="catalog" className="max-w-[1400px] mx-auto px-10 py-60 relative z-10">
-        <div className="flex flex-col md:flex-row justify-between items-start mb-40 gap-20">
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-6 mb-8">
-              <div className="h-2 w-24 bg-cyan-500 rounded-full shadow-[0_0_20px_rgba(6,182,212,0.5)]" />
-              <span className="text-cyan-500 text-sm font-black uppercase tracking-[0.5em]">Curated Selection // 2026</span>
-            </div>
-            <h2 className="text-6xl md:text-[10rem] font-black tracking-tighter leading-[0.8] mb-10 italic">NEW<br/><span className="text-cyan-500">ARRIVALS</span></h2>
-            <p className="text-gray-500 text-xl font-medium tracking-wide max-w-xl">
-              Seleccionamos solo figuras de escalas premium y resinas limitadas. Calidad garantizada en cada envío.
-            </p>
+      <section ref={catalogRef} id="catalog" className="max-w-[1400px] mx-auto px-6 md:px-10 py-40">
+        <div className="flex flex-col md:flex-row justify-between items-start mb-20 gap-10">
+          <div>
+            <h2 className="text-6xl md:text-8xl font-black tracking-tighter italic mb-4 uppercase">NEW <span className="text-cyan-500">ARRIVALS</span></h2>
+            <p className="text-gray-500 text-lg font-bold tracking-widest uppercase">Drop #01 // Collector Edition</p>
           </div>
+          
+          {/* Dynamic Filters */}
           <div className="flex flex-wrap gap-4 pt-10">
-            {["All Items", "1/7 Scales", "Action Figures", "Busts"].map((filter) => (
-              <button key={filter} className="px-10 py-5 bg-white/5 rounded-[1.5rem] text-[10px] font-black tracking-[0.3em] hover:bg-cyan-500 hover:text-black transition-all border border-white/10 uppercase">
+            {categories.map((filter) => (
+              <button 
+                key={filter} 
+                onClick={() => setActiveFilter(filter)}
+                className={`px-8 py-4 rounded-xl text-[10px] font-black tracking-[0.2em] transition-all border uppercase ${
+                  activeFilter === filter 
+                    ? "bg-cyan-500 text-black border-cyan-500" 
+                    : "bg-white/5 text-white/60 border-white/10 hover:border-white/30"
+                }`}
+              >
                 {filter}
               </button>
             ))}
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
+        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           <AnimatePresence mode="popLayout">
-            {products.map((product, index) => (
+            {filteredProducts.map((product, index) => (
               <ProductCard 
                 key={product.id}
+                product={product}
                 index={index}
-                name={product.name}
-                anime={product.anime}
-                price={product.price}
-                image={product.image_url}
+                onClick={setSelectedProduct}
               />
             ))}
           </AnimatePresence>
-        </div>
+        </motion.div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="border-t border-white/10 bg-black/80 py-40 px-10 backdrop-blur-[100px] mt-40">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-24">
-          <div className="lg:col-span-2">
-            <Logo />
-            <p className="mt-12 text-gray-500 text-lg leading-relaxed max-w-md font-medium">
-              IKIGAI es el destino final para coleccionistas serios. Importamos directamente desde Akihabara las piezas más exclusivas del mundo del anime.
-            </p>
-            <div className="flex gap-10 mt-12">
-              {["IG", "TW", "TK", "WA"].map(soc => (
-                <a key={soc} href="#" className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center text-[10px] font-black hover:bg-cyan-500 hover:text-black transition-all border border-white/10">{soc}</a>
-              ))}
-            </div>
-          </div>
-          <div>
-            <h4 className="text-white font-black text-xs uppercase tracking-[0.5em] mb-10">Links Rápidos</h4>
-            <ul className="space-y-6 text-gray-500 text-sm font-bold uppercase tracking-widest">
-              <li><a href="#" className="hover:text-cyan-400 transition-colors">Términos de Envío</a></li>
-              <li><a href="#" className="hover:text-cyan-400 transition-colors">Guía de Autenticidad</a></li>
-              <li><a href="#" className="hover:text-cyan-400 transition-colors">Programa VIP</a></li>
-              <li><a href="#" className="hover:text-cyan-400 transition-colors">Soporte 24/7</a></li>
-            </ul>
-          </div>
-          <div className="flex flex-col items-center lg:items-end justify-end">
-             <div className="text-center lg:text-right">
-               <p className="text-[10px] text-gray-600 font-black uppercase tracking-[0.5em] leading-loose">
-                AUTHENTIC JAPANESE IMPORT<br/>
-                © 2026 IKIGAI ANIME SHOP<br/>
-                DESIGNED FOR COLLECTORS
-              </p>
-             </div>
-          </div>
-        </div>
+      <footer className="py-20 text-center border-t border-white/5">
+        <Logo />
+        <p className="mt-10 text-gray-600 text-xs font-black uppercase tracking-[0.5em]">© 2026 IKIGAI ANIME SHOP // MASTER COLLECTORS</p>
       </footer>
     </main>
   );
