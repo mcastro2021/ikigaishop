@@ -6,79 +6,7 @@
         "price": 285000,
         "image_url": "/images/one-piece/kaido.webp",
         "stock": 3,
-        "description": "Edición 'Best of the Omnibus'. Esta imponente figura de Kaido en su forma humana captura la esencia del Capitán de los Piratas de las Bestias. Esculpida con un nivel de detalle extremo en PVC de alta densidad. Altura: 19cm. Incluye base premium."
-    },
-    {
-        "id": 2,
-        "name": "Figura de Luffy Gear 5 - One Piece - Ichibansho",
-        "anime": "One Piece",
-        "price": 195000,
-        "image_url": "/images/one-piece/luffy.webp",
-        "stock": 5,
-        "description": "La liberación final de Luffy: Gear 5 (Joy Boy). Captura el momento épico del despertar de la Fruta Gomu Gomu. Diseño dinámico con efectos de nubes de humo y pose de combate legendaria. Altura: 15cm."
-    },
-    {
-        "id": 3,
-        "name": "Figura de Roronoa Zoro - One Piece - King of Artist",
-        "anime": "One Piece",
-        "price": 165000,
-        "image_url": "/images/one-piece/zoro.webp",
-        "stock": 4,
-        "description": "Zoro en su versión 'Wano Country'. Pose clásica desenfundando sus katanas. Masterpiece de la línea King of Artist, famosa por su realismo en texturas de ropa y expresiones faciales. Altura: 22cm."
-    },
-    {
-        "id": 4,
-        "name": "Figura de Trafalgar Law - One Piece - DXF The Grandline Men",
-        "anime": "One Piece",
-        "price": 145000,
-        "image_url": "/images/one-piece/law.webp",
-        "stock": 2,
-        "description": "El Cirujano de la Muerte en una pose relajada pero amenazante. Parte de la colección Vol. 14 de The Grandline Men. Incluye su espada Kikoku con gran detalle en la empuñadura. Altura: 17cm."
-    },
-    {
-        "id": 5,
-        "name": "Figura de Portgas D. Ace - One Piece - Battle Record Collection",
-        "anime": "One Piece",
-        "price": 155000,
-        "image_url": "/images/one-piece/ace.webp",
-        "stock": 6,
-        "description": "Ace ejecutando su técnica de fuego característica. Pose dinámica de combate con efectos de llamas detallados. Importada directamente desde Japón. Altura: 16cm."
-    },
-    {
-        "id": 6,
-        "name": "Figura de Yamato - One Piece - Ichibansho",
-        "anime": "One Piece",
-        "price": 210000,
-        "image_url": "/images/one-piece/yamato.webp",
-        "stock": 3,
-        "description": "La hija de Kaido que hereda la voluntad de Oden. Escultura premium que destaca por el detalle en los cuernos y la vestimenta tradicional de Wano. Incluye su maza Takeru. Altura: 18cm."
-    },
-    {
-        "id": 7,
-        "name": "Figura de Shanks - One Piece - DXF The Grandline Men",
-        "anime": "One Piece",
-        "price": 135000,
-        "image_url": "/images/one-piece/shanks.webp",
-        "stock": 5,
-        "description": "El Emperador del Mar en su versión clásica. Una pieza fundamental para cualquier coleccionista de One Piece. Captura la autoridad y carisma del mentor de Luffy. Altura: 17cm."
-    },
-    {
-        "id": 8,
-        "name": "Figura de Nico Robin - One Piece - Glitter & Glamours",
-        "anime": "One Piece",
-        "price": 125000,
-        "image_url": "/images/one-piece/robin.webp",
-        "stock": 8,
-        "description": "Elegancia y detalle en la línea Glitter & Glamours. Nico Robin en una pose sofisticada con gran acabado en el cabello y los pliegues de su vestido. Ideal para vitrina. Altura: 25cm."
-    },
-    {
-        "id": 9,
-        "name": "Figura de Portgas D. Ace MAX - Edición Limitada",
-        "anime": "One Piece",
-        "price": 320000,
-        "image_url": "/images/one-piece/ace.webp",
-        "stock": 2,
-        "description": "Versión Maximum de Ace. Incluye efectos translúcidos de gran tamaño que simulan un incendio masivo. Edición limitada numerada para coleccionistas de élite. Altura: 24cm."
+        "description": "Edición 'Best of the Omnibus'. Esta imponente figura de Kaido en su forma humana captura la esencia del Capitán de los Piratas de las Bestias. Altura: 19cm."
     },
     {
         "id": 10,
@@ -87,7 +15,7 @@
         "price": 180000,
         "image_url": "/images/dragon-ball/goku.png",
         "stock": 5,
-        "description": "El legendario guerrero en su transformación Super Saiyan clásica. Línea Masterlise conocida por su tamaño superior y musculatura definida. El orgullo de cualquier fan de DBZ. Altura: 25cm."
+        "description": "El legendario guerrero en su transformación Super Saiyan clásica. El orgullo de cualquier fan de DBZ. Altura: 25cm."
     },
     {
         "id": 11,
@@ -96,7 +24,7 @@
         "price": 210000,
         "image_url": "/images/demon-slayer/tanjiro.png",
         "stock": 4,
-        "description": "Tanjiro ejecutando la danza del Dios del Fuego. Una pieza de alto impacto visual con efectos de respiración solar envolventes. Pintura con acabado brillante en los efectos. Altura: 18cm."
+        "description": "Tanjiro ejecutando la danza del Dios del Fuego. Una pieza de alto impacto visual. Altura: 18cm."
     },
     {
         "id": 12,
@@ -105,7 +33,7 @@
         "price": 165000,
         "image_url": "/images/naruto/naruto.png",
         "stock": 6,
-        "description": "Naruto en Modo Ermitaño durante la batalla contra Pain. Incluye el pergamino de invocación gigante en su espalda y ojos con pupila horizontal. Altura: 27cm."
+        "description": "Naruto en Modo Ermitaño durante la batalla contra Pain. Incluye el pergamino de invocación gigante. Altura: 27cm."
     },
     {
         "id": 13,
@@ -114,6 +42,6 @@
         "price": 290000,
         "image_url": "/images/jujutsu-kaisen/gojo.png",
         "stock": 3,
-        "description": "El hechicero más fuerte utilizando su Expansión de Dominio. Incluye cabeza intercambiable (con y sin venda). Efectos de energía maldita en la base. Altura: 21cm."
+        "description": "El hechicero más fuerte utilizando su Expansión de Dominio. Incluye cabeza intercambiable. Altura: 21cm."
     }
 ]
