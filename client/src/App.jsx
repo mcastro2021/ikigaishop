@@ -5,7 +5,29 @@ import axios from 'axios';
 // --- CONFIGURACIÓN COMERCIAL ---
 const WHATSAPP_NUMBER = "5493512046802";
 const TRANSFER_DISCOUNT = 0.10;
-const SHIPPING_COST = 8500; // Tarifa plana Correo Argentino
+const SHIPPING_COST = 8500;
+
+// --- LOGO VISA SVG (INLINE PARA QUE NO FALLE) ---
+const VisaLogo = ({ className }) => (
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className={className} fill="currentColor">
+    <path d="M12.915 15.892l1.643-9.986h2.583l-1.643 9.986h-2.583zm-6.606-9.986l-2.613 6.944-.284-1.396C3.12 10.334 2.11 9.293.96 8.784L1.002 8.543H5.21c.915 0 1.745.626 1.956 1.543l1.168 5.806 2.614-9.986H6.309zm16.518 9.986h-2.426l-1.425-7.062c-.156-.63-.586-.884-1.127-.884h-3.834l-.053.255c.783.176 1.673.473 2.21 1.055.492.535.534.823.634 1.314l.97 4.965h2.426l1.643-9.986h2.425l-1.643 9.986z" />
+  </svg>
+);
+
+// --- ANIMACIÓN DE LÍNEAS DE VELOCIDAD ANIME ---
+const SpeedLines = () => (
+  <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
+    {Array.from({ length: 30 }).map((_, i) => (
+      <motion.div
+        key={i}
+        initial={{ scaleX: 0, x: "-50%", y: "50%", rotate: i * 12 }}
+        animate={{ scaleX: [0, 2, 0], opacity: [0, 1, 0] }}
+        transition={{ duration: 1.5, repeat: Infinity, delay: i * 0.05, ease: "easeInOut" }}
+        className="absolute w-[100vw] h-[1px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent origin-left"
+      />
+    ))}
+  </div>
+);
 
 // --- LOGO COMPONENT ---
 const Logo = () => (
@@ -35,7 +57,7 @@ const Logo = () => (
 const PaymentLogos = ({ className = "" }) => (
   <div className={`flex items-center gap-6 ${className}`}>
     <img src="https://logodownload.org/wp-content/uploads/2019/06/mercado-pago-logo-1.png" alt="MP" className="h-4 md:h-6 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" />
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Visa_2021.svg/1200px-Visa_2021.svg.png" alt="Visa" className="h-3 md:h-5 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" />
+    <VisaLogo className="h-4 md:h-6 text-[#1A1F71] grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" />
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/1280px-Mastercard-logo.svg.png" alt="Master" className="h-6 md:h-10 grayscale hover:grayscale-0 transition-all opacity-60 hover:opacity-100" />
   </div>
 );
@@ -56,8 +78,7 @@ const WhatsAppButton = () => (
 // --- CART DRAWER ---
 const CartDrawer = ({ isOpen, onClose, cart, updateQuantity, removeItem }) => {
   const subtotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  const [shippingType, setShippingType] = useState(null); // 'correo' | 'retiro'
-
+  const [shippingType, setShippingType] = useState(null);
   const total = shippingType === 'correo' ? subtotal + SHIPPING_COST : subtotal;
 
   const handleCheckout = () => {
@@ -112,45 +133,19 @@ const CartDrawer = ({ isOpen, onClose, cart, updateQuantity, removeItem }) => {
               <div className="space-y-4">
                 <p className="text-[10px] text-gray-500 font-black uppercase tracking-[0.4em]">Opción de Envío</p>
                 <div className="grid grid-cols-2 gap-4">
-                  <button 
-                    onClick={() => setShippingType('correo')}
-                    className={`p-4 rounded-2xl border text-[10px] font-black uppercase tracking-widest transition-all ${shippingType === 'correo' ? 'bg-cyan-500 text-black border-cyan-500' : 'bg-white/5 text-white/40 border-white/10'}`}
-                  >
-                    Correo Argentino (${SHIPPING_COST})
-                  </button>
-                  <button 
-                    onClick={() => setShippingType('retiro')}
-                    className={`p-4 rounded-2xl border text-[10px] font-black uppercase tracking-widest transition-all ${shippingType === 'retiro' ? 'bg-cyan-500 text-black border-cyan-500' : 'bg-white/5 text-white/40 border-white/10'}`}
-                  >
-                    Retiro en Local (Gratis)
-                  </button>
+                  <button onClick={() => setShippingType('correo')} className={`p-4 rounded-2xl border text-[10px] font-black uppercase tracking-widest transition-all ${shippingType === 'correo' ? 'bg-cyan-500 text-black border-cyan-500' : 'bg-white/5 text-white/40 border-white/10'}`}>Correo Argentino (${SHIPPING_COST})</button>
+                  <button onClick={() => setShippingType('retiro')} className={`p-4 rounded-2xl border text-[10px] font-black uppercase tracking-widest transition-all ${shippingType === 'retiro' ? 'bg-cyan-500 text-black border-cyan-500' : 'bg-white/5 text-white/40 border-white/10'}`}>Retiro en Local (Gratis)</button>
                 </div>
               </div>
 
               <div className="space-y-2">
-                <div className="flex justify-between text-gray-400 text-xs font-bold uppercase tracking-widest">
-                  <span>Subtotal</span>
-                  <span>$ {subtotal.toLocaleString('es-AR')}</span>
-                </div>
-                {shippingType === 'correo' && (
-                  <div className="flex justify-between text-gray-400 text-xs font-bold uppercase tracking-widest">
-                    <span>Envío</span>
-                    <span>$ {SHIPPING_COST.toLocaleString('es-AR')}</span>
-                  </div>
-                )}
                 <div className="flex justify-between text-white text-2xl font-black italic uppercase pt-2">
                   <span>Total</span>
                   <span className="text-cyan-500">$ {total.toLocaleString('es-AR')}</span>
                 </div>
               </div>
 
-              <button 
-                onClick={handleCheckout}
-                disabled={cart.length === 0 || !shippingType}
-                className="w-full py-6 bg-cyan-500 text-black font-black uppercase tracking-[0.4em] rounded-2xl hover:bg-white transition-all disabled:opacity-50 text-xs"
-              >
-                Finalizar Compra
-              </button>
+              <button onClick={handleCheckout} disabled={cart.length === 0 || !shippingType} className="w-full py-6 bg-cyan-500 text-black font-black uppercase tracking-[0.4em] rounded-2xl hover:bg-white transition-all disabled:opacity-50 text-xs">Finalizar Compra</button>
               <PaymentLogos className="justify-center grayscale opacity-40 scale-75" />
             </div>
           </motion.div>
@@ -170,6 +165,9 @@ function App() {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const catalogRef = useRef(null);
+  const { scrollYProgress } = useScroll();
+  const titleY = useTransform(scrollYProgress, [0, 0.3], [0, -100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -222,17 +220,10 @@ function App() {
     <main className="min-h-screen bg-[#050505] text-white selection:bg-cyan-500 selection:text-black font-sans overflow-x-hidden">
       
       <WhatsAppButton />
-      <CartDrawer 
-        isOpen={isCartOpen} 
-        onClose={() => setIsCartOpen(false)} 
-        cart={cart} 
-        updateQuantity={updateCartQuantity} 
-        removeItem={removeFromCart} 
-      />
+      <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} cart={cart} updateQuantity={updateCartQuantity} removeItem={removeFromCart} />
 
       <AnimatePresence>
         {selectedProduct && (
-          /* Reutilizamos el detalle del producto con la lógica de envío integrada visualmente */
           <ProductDetailModal product={selectedProduct} onClose={() => setSelectedProduct(null)} onAddToCart={addToCart} />
         )}
       </AnimatePresence>
@@ -240,15 +231,12 @@ function App() {
       <nav className="fixed w-full z-50 px-6 md:px-10 py-8">
         <div className="max-w-7xl mx-auto flex justify-between items-center bg-black/40 backdrop-blur-3xl px-6 md:px-10 h-24 rounded-[2rem] border border-white/10 shadow-2xl">
           <Logo />
-          <div className="hidden lg:flex gap-16 text-[10px] font-black uppercase tracking-[0.5em] text-white/60">
-            <button onClick={() => { setActiveFilter("Figuras"); scrollToCatalog(); }} className="hover:text-cyan-400 transition-all uppercase tracking-widest">Figuras</button>
-            <button onClick={() => { setActiveFilter("Comics & Manga"); scrollToCatalog(); }} className="hover:text-cyan-400 transition-all uppercase tracking-widest">Comics & Manga</button>
-            <button onClick={() => { scrollToCatalog(); }} className="hover:text-cyan-400 transition-all uppercase tracking-widest">Formas de Pago</button>
+          <div className="hidden lg:flex gap-12 text-[10px] font-black uppercase tracking-[0.5em] text-white/60">
+            <button onClick={() => { setActiveFilter("Figuras"); scrollToCatalog(); }} className="hover:text-cyan-400 transition-all uppercase">Figuras</button>
+            <button onClick={() => { setActiveFilter("Comics & Manga"); scrollToCatalog(); }} className="hover:text-cyan-400 transition-all uppercase">Comics & Manga</button>
+            <button onClick={() => { scrollToCatalog(); }} className="hover:text-cyan-400 transition-all uppercase">Formas de Pago</button>
           </div>
-          <button 
-            onClick={() => setIsCartOpen(true)}
-            className="relative group p-4 bg-white/10 rounded-2xl hover:bg-cyan-500 transition-all border border-white/20"
-          >
+          <button onClick={() => setIsCartOpen(true)} className="relative group p-4 bg-white/10 rounded-2xl hover:bg-cyan-500 transition-all border border-white/20">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:text-black"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
             <span className="absolute -top-2 -right-2 bg-white text-black text-[10px] font-black h-6 w-6 flex items-center justify-center rounded-xl border-2 border-black">
               {cart.reduce((acc, item) => acc + item.quantity, 0)}
@@ -258,11 +246,12 @@ function App() {
       </nav>
 
       <section className="relative h-[110vh] flex flex-col justify-center items-center text-center px-10">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-cyan-500/10 via-transparent to-transparent opacity-50" />
-        <motion.div className="z-10 relative">
-          <h1 className="text-[12vw] font-black mb-10 tracking-[-0.05em] leading-[0.8] select-none italic uppercase">
+        <SpeedLines />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-cyan-500/5 via-transparent to-transparent opacity-50" />
+        <motion.div style={{ y: titleY, opacity }} className="z-10 relative mt-20">
+          <h1 className="text-[9vw] font-black mb-10 tracking-[-0.05em] leading-[0.8] select-none italic uppercase">
             <span className="text-white block drop-shadow-2xl">ANIME</span>
-            <span className="text-transparent bg-clip-text bg-gradient-to-br from-cyan-300 via-white to-purple-600">REVOLUTION</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-br from-cyan-300 via-white to-purple-600">Revolution</span>
           </h1>
           <button onClick={() => { setActiveFilter("All Items"); scrollToCatalog(); }} className="px-16 py-8 bg-cyan-500 text-black font-black text-sm rounded-[2rem] tracking-[0.4em] uppercase hover:shadow-[0_0_50px_rgba(6,182,212,0.5)] transition-all">Explorar Productos</button>
         </motion.div>
@@ -270,18 +259,20 @@ function App() {
 
       <section ref={catalogRef} id="catalog" className="max-w-[1400px] mx-auto px-6 md:px-10 py-40">
         <div className="flex flex-col md:flex-row justify-between items-start mb-20 gap-10">
-          <div>
-            <h2 className="text-6xl md:text-8xl font-black tracking-tighter italic mb-4 uppercase">
-              {activeFilter === "All Items" ? "NEW RELEASES" : activeFilter}
-            </h2>
+          <h2 className="text-6xl md:text-8xl font-black tracking-tighter italic mb-4 uppercase">
+            {activeFilter === "All Items" ? "NEW ARRIVALS" : activeFilter}
+          </h2>
+          <div className="flex flex-wrap gap-4 pt-10">
+            {categories.map((filter) => (
+              <button key={filter} onClick={() => setActiveFilter(filter)} className={`px-8 py-4 rounded-xl text-[10px] font-black tracking-[0.2em] transition-all border uppercase ${activeFilter === filter ? "bg-cyan-500 text-black border-cyan-500" : "bg-white/5 text-white/60 border-white/10 hover:border-white/30"}`}>{filter}</button>
+            ))}
           </div>
         </div>
 
         <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           <AnimatePresence mode="popLayout">
             {filteredProducts.map((product, index) => (
-              <motion.div 
-                layout key={product.id} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9 }} transition={{ delay: (index % 4) * 0.05, duration: 0.5 }}
+              <motion.div layout key={product.id} initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9 }} transition={{ delay: (index % 4) * 0.05, duration: 0.5 }}
                 onClick={() => setSelectedProduct(product)}
                 className="group relative bg-[#0a0a0a] border border-white/10 rounded-[2rem] overflow-hidden hover:border-cyan-500/30 transition-all duration-500 shadow-2xl cursor-pointer"
               >
