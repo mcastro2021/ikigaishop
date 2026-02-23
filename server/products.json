@@ -2,6 +2,7 @@
     {
         "id": 1,
         "name": "Figura de Kaido One Piece - Ichibansho",
+        "category": "Figuras",
         "anime": "One Piece",
         "price": 285000,
         "image_url": "/images/one-piece/kaido.webp",
@@ -11,37 +12,31 @@
     {
         "id": 10,
         "name": "Son Goku Super Saiyan - Dragon Ball Z - Masterlise",
+        "category": "Figuras",
         "anime": "Dragon Ball",
         "price": 180000,
         "image_url": "/images/dragon-ball/goku.png",
         "stock": 5,
-        "description": "El legendario guerrero en su transformación Super Saiyan clásica. El orgullo de cualquier fan de DBZ. Altura: 25cm."
+        "description": "El legendario guerrero en su transformación Super Saiyan clásica. Altura: 25cm."
     },
     {
-        "id": 11,
-        "name": "Tanjiro Kamado - Demon Slayer - Hinokami Kagura",
-        "anime": "Demon Slayer",
-        "price": 210000,
-        "image_url": "/images/demon-slayer/tanjiro.png",
-        "stock": 4,
-        "description": "Tanjiro ejecutando la danza del Dios del Fuego. Una pieza de alto impacto visual. Altura: 18cm."
+        "id": 14,
+        "name": "Manga One Piece Vol. 100 - Edición Especial",
+        "category": "Comics & Manga",
+        "anime": "One Piece",
+        "price": 8500,
+        "image_url": "/images/manga/op100.png",
+        "stock": 20,
+        "description": "El volumen centenario de la obra maestra de Eiichiro Oda. Incluye páginas a color exclusivas."
     },
     {
-        "id": 12,
-        "name": "Naruto Uzumaki - Sage Mode - Grandista",
-        "anime": "Naruto",
-        "price": 165000,
-        "image_url": "/images/naruto/naruto.png",
-        "stock": 6,
-        "description": "Naruto en Modo Ermitaño durante la batalla contra Pain. Incluye el pergamino de invocación gigante. Altura: 27cm."
-    },
-    {
-        "id": 13,
-        "name": "Satoru Gojo - Jujutsu Kaisen - Unlimited Void",
-        "anime": "Jujutsu Kaisen",
-        "price": 290000,
-        "image_url": "/images/jujutsu-kaisen/gojo.png",
-        "stock": 3,
-        "description": "El hechicero más fuerte utilizando su Expansión de Dominio. Incluye cabeza intercambiable. Altura: 21cm."
+        "id": 15,
+        "name": "Batman: The Killing Joke - Edición Deluxe",
+        "category": "Comics & Manga",
+        "anime": "DC Comics",
+        "price": 22000,
+        "image_url": "/images/comics/killing-joke.png",
+        "stock": 10,
+        "description": "La novela gráfica definitiva de Alan Moore y Brian Bolland sobre el origen del Joker."
     }
 ]
