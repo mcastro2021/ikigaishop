@@ -1,0 +1,74 @@
+[
+    {
+        "id": 1,
+        "name": "Figura de Kaido One Piece - Ichibansho",
+        "anime": "One Piece",
+        "price": 285000,
+        "image_url": "/images/one-piece/kaido.webp",
+        "stock": 3
+    },
+    {
+        "id": 2,
+        "name": "Figura de Luffy Gear 5 - One Piece - Ichibansho",
+        "anime": "One Piece",
+        "price": 195000,
+        "image_url": "/images/one-piece/luffy.webp",
+        "stock": 5
+    },
+    {
+        "id": 3,
+        "name": "Figura de Roronoa Zoro - One Piece - King of Artist",
+        "anime": "One Piece",
+        "price": 165000,
+        "image_url": "/images/one-piece/zoro.webp",
+        "stock": 4
+    },
+    {
+        "id": 4,
+        "name": "Figura de Trafalgar Law - One Piece - DXF The Grandline Men",
+        "anime": "One Piece",
+        "price": 145000,
+        "image_url": "/images/one-piece/law.webp",
+        "stock": 2
+    },
+    {
+        "id": 5,
+        "name": "Figura de Portgas D. Ace - One Piece - Battle Record Collection",
+        "anime": "One Piece",
+        "price": 155000,
+        "image_url": "/images/one-piece/ace.webp",
+        "stock": 6
+    },
+    {
+        "id": 6,
+        "name": "Figura de Yamato - One Piece - Ichibansho",
+        "anime": "One Piece",
+        "price": 210000,
+        "image_url": "/images/one-piece/yamato.webp",
+        "stock": 3
+    },
+    {
+        "id": 7,
+        "name": "Figura de Shanks - One Piece - DXF The Grandline Men",
+        "anime": "One Piece",
+        "price": 135000,
+        "image_url": "/images/one-piece/shanks.webp",
+        "stock": 5
+    },
+    {
+        "id": 8,
+        "name": "Figura de Nico Robin - One Piece - Glitter & Glamours",
+        "anime": "One Piece",
+        "price": 125000,
+        "image_url": "/images/one-piece/robin.webp",
+        "stock": 8
+    },
+    {
+        "id": 9,
+        "name": "Figura de Portgas D. Ace MAX - Edición Limitada",
+        "anime": "One Piece",
+        "price": 320000,
+        "image_url": "/images/one-piece/ace.webp",
+        "stock": 2
+    }
+]

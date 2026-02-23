@@ -3,10 +3,13 @@ services:
     name: ikigai-shop
     env: node
     plan: free
+    # Unified Build: 1. Server deps -> 2. Client deps -> 3. Client build
     buildCommand: npm install && cd client && npm install && npm run build
     startCommand: npm start
     envVars:
       - key: NODE_VERSION
         value: 20
+      - key: NODE_ENV
+        value: production
       - key: PORT
         value: 10000
