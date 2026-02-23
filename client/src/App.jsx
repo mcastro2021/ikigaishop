@@ -61,64 +61,62 @@ const GraphicalBackground = () => {
   );
 };
 
-const ProductCard = ({ name, anime, price, image, index }) => (
-  <motion.div 
-    initial={{ opacity: 0, scale: 0.9, y: 50 }}
-    whileInView={{ opacity: 1, scale: 1, y: 0 }}
-    transition={{ delay: (index % 4) * 0.1, duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
-    viewport={{ once: true, margin: "-100px" }}
-    whileHover={{ y: -20 }}
-    className="group relative bg-[#0a0a0a] border border-white/10 rounded-[2.5rem] overflow-hidden hover:border-cyan-500/50 transition-all duration-700 shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
-  >
-    <div className="h-[450px] overflow-hidden relative">
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent z-10 opacity-60" />
-      <motion.img 
-        src={image} 
-        alt={name} 
-        loading="lazy"
-        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-[2s] ease-out" 
-        onError={(e) => {
-          e.target.src = `https://placehold.co/400x600/0a0a0a/06b6d4?text=${encodeURIComponent(name)}`;
-          e.target.onerror = null;
-        }}
-      />
-      <div className="absolute top-8 right-8 z-20">
-        <div className="bg-black/80 backdrop-blur-2xl text-cyan-400 text-[10px] font-black px-5 py-2 rounded-full border border-cyan-500/30 uppercase tracking-[0.3em] shadow-xl">
-          {anime}
-        </div>
-      </div>
-    </div>
-    <div className="p-10 relative z-20">
-      <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-cyan-400 transition-colors line-clamp-1 tracking-tight">{name}</h3>
-      <div className="flex justify-between items-end">
-        <div className="flex flex-col">
-          <span className="text-[10px] text-gray-500 uppercase tracking-[0.4em] font-black mb-2 opacity-60">Valor de Colección</span>
-          <p className="text-4xl font-black text-white tracking-tighter shadow-cyan-500/20 drop-shadow-lg">
-            <span className="text-cyan-500 text-xl mr-1">$</span>{price.toLocaleString('es-AR')}
-          </p>
-        </div>
-        <motion.button 
-          whileTap={{ scale: 0.8 }}
-          className="bg-white text-black h-16 w-16 rounded-[1.5rem] flex items-center justify-center hover:bg-cyan-400 transition-all shadow-[0_10px_30px_rgba(255,255,255,0.1)] group/btn overflow-hidden"
-        >
-          <motion.div className="relative z-10" whileHover={{ rotate: 180 }} transition={{ duration: 0.5 }}>
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14M5 12h14"/></svg>
-          </motion.div>
-          <div className="absolute inset-0 bg-cyan-400 translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300" />
-        </motion.button>
-      </div>
-    </div>
-    <div className="absolute -bottom-2 -right-2 w-32 h-32 bg-cyan-500/5 blur-[50px] group-hover:bg-cyan-500/20 transition-all duration-700 rounded-full" />
-  </motion.div>
-);
+// --- PRODUCT CARD COMPONENT ---
+const ProductCard = ({ name, anime, price, image, index }) => {
+  const [imgError, setImgError] = useState(false);
+  const [imgLoaded, setImgLoaded] = useState(false);
 
-// --- FALLBACK DATA FOR ROBUSTNESS ---
-const FALLBACK_PRODUCTS = [
-  { id: 1, name: "Kaido - Ichibansho", anime: "One Piece", price: 285000, image_url: "/images/one-piece/kaido.webp" },
-  { id: 2, name: "Luffy Gear 5 - Ichibansho", anime: "One Piece", price: 195000, image_url: "/images/one-piece/luffy.webp" },
-  { id: 3, name: "Zoro - King of Artist", anime: "One Piece", price: 165000, image_url: "/images/one-piece/zoro.webp" },
-  { id: 4, name: "Trafalgar Law - DXF", anime: "One Piece", price: 145000, image_url: "/images/one-piece/law.webp" }
-];
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ delay: (index % 4) * 0.1, duration: 0.8 }}
+      viewport={{ once: true }}
+      className="group relative bg-[#0a0a0a] border border-white/10 rounded-[2rem] overflow-hidden hover:border-cyan-500/30 transition-all duration-500 shadow-2xl"
+    >
+      <div className="h-[400px] relative overflow-hidden bg-black">
+        {!imgError ? (
+          <motion.img 
+            src={image} 
+            alt={name}
+            onLoad={() => setImgLoaded(true)}
+            onError={() => setImgError(true)}
+            className={`w-full h-full object-cover group-hover:scale-110 transition-transform duration-[1.5s] ease-out ${imgLoaded ? 'opacity-100' : 'opacity-0'}`}
+          />
+        ) : (
+          <div className="absolute inset-0 bg-gradient-to-br from-[#050505] to-[#111] flex flex-col items-center justify-center p-8 text-center border-b border-white/5">
+            <div className="w-12 h-1 bg-cyan-500 mb-6 opacity-50" />
+            <h4 className="text-lg font-black italic text-white/40 uppercase tracking-tighter leading-none mb-2">
+              {name.split(' ').slice(0, 3).join(' ')}
+            </h4>
+            <p className="text-[9px] text-cyan-500/30 font-black uppercase tracking-[0.4em]">Collector Edition</p>
+          </div>
+        )}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent opacity-80" />
+        <div className="absolute top-6 right-6">
+          <span className="bg-black/60 backdrop-blur-md text-cyan-400 text-[9px] font-black px-4 py-2 rounded-full border border-white/10 uppercase tracking-[0.2em]">
+            {anime}
+          </span>
+        </div>
+      </div>
+
+      <div className="p-8">
+        <h3 className="text-xl font-bold text-white mb-6 group-hover:text-cyan-400 transition-colors line-clamp-1 italic">{name}</h3>
+        <div className="flex justify-between items-center">
+          <div className="flex flex-col">
+            <span className="text-[9px] text-gray-600 uppercase tracking-[0.3em] font-black mb-1">Price</span>
+            <p className="text-3xl font-black text-white italic tracking-tighter">
+              <span className="text-cyan-500 text-lg mr-1">$</span>{price.toLocaleString('es-AR')}
+            </p>
+          </div>
+          <button className="h-12 w-12 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-cyan-500 hover:text-black transition-all">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -132,17 +130,13 @@ function App() {
     const fetchProducts = async () => {
       try {
         const response = await axios.get('/api/products');
-        if (response.data && response.data.length > 0) {
+        if (response.data && Array.isArray(response.data) && response.data.length > 0) {
           setProducts(response.data);
-        } else {
-          console.warn("API returned empty list, using fallbacks");
-          setProducts(FALLBACK_PRODUCTS);
         }
       } catch (error) {
-        console.error("API error, using manual data for catalog stability");
-        setProducts(FALLBACK_PRODUCTS);
+        console.error("Connection error loading catalog");
       } finally {
-        setTimeout(() => setLoading(false), 500); // Smooth transition
+        setTimeout(() => setLoading(false), 800);
       }
     };
     fetchProducts();
@@ -195,7 +189,7 @@ function App() {
             </button>
             <button className="relative group p-4 bg-white/10 rounded-2xl hover:bg-cyan-500 transition-all border border-white/20">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="group-hover:text-black"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4H6zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
-              <span className="absolute -top-2 -right-2 bg-white text-black text-[10px] font-black h-6 w-6 flex items-center justify-center rounded-xl border-4 border-black group-hover:bg-black group-hover:text-white transition-colors">0</span>
+              <span className="absolute -top-2 -right-2 bg-white text-black text-[10px] font-black h-6 w-6 flex items-center justify-center rounded-xl border-4 border-black group-hover:bg-black group-hover:text-white transition-colors">{products.length}</span>
             </button>
           </div>
         </div>
@@ -278,7 +272,7 @@ function App() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-12">
-          <AnimatePresence>
+          <AnimatePresence mode="popLayout">
             {products.map((product, index) => (
               <ProductCard 
                 key={product.id}

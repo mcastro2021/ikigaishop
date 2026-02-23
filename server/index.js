@@ -25,8 +25,17 @@ const getProducts = () => {
 
 // API Endpoints
 app.get('/api/products', (req, res) => {
-    const products = getProducts();
-    res.json(products);
+    try {
+        const products = getProducts();
+        if (!products || products.length === 0) {
+            throw new Error("No products found in products.json");
+        }
+        res.header("Access-Control-Allow-Origin", "*"); // Forzar acceso
+        res.json(products);
+    } catch (error) {
+        console.error("API Error:", error.message);
+        res.status(500).json({ error: "Failed to load products", details: error.message });
+    }
 });
 
 app.get('/api/health', (req, res) => {
