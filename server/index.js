@@ -34,12 +34,9 @@ app.get('/api/health', (req, res) => {
 });
 
 // STATIC ASSETS STRATEGY
-// 1. Try to serve from 'dist' first (Production / Render)
+// Serve all built assets from the frontend's dist folder
+// This includes index.html, JS, CSS AND the 'images' folder (which Vite copies there)
 app.use(express.static(path.join(__dirname, '../client/dist')));
-
-// 2. Serve images - prioritizing the build folder, falling back to public
-app.use('/images', express.static(path.join(__dirname, '../client/dist/images')));
-app.use('/images', express.static(path.join(__dirname, '../client/public/images')));
 
 // Fallback for SPA (Single Page Application)
 app.get('*', (req, res) => {
@@ -47,7 +44,7 @@ app.get('*', (req, res) => {
     if (fs.existsSync(indexPath)) {
         res.sendFile(indexPath);
     } else {
-        res.status(404).send("Frontend not built yet. Run 'npm run build' in client directory or check deployment logs.");
+        res.status(404).send("<h1>Frontend not found</h1><p>Run 'npm run build' in client folder.</p>");
     }
 });
 
