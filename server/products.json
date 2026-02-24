@@ -38,5 +38,145 @@
         "image_url": "/images/comics/killing-joke.png",
         "stock": 10,
         "description": "La novela gráfica definitiva de Alan Moore y Brian Bolland sobre el origen del Joker."
+    },
+    {
+        "id": 16,
+        "name": "SH Figuarts Monkey D. Luffy - Raid on Onigashima",
+        "category": "Figuras",
+        "anime": "One Piece",
+        "price": 65000,
+        "image_url": "/images/one-piece/luffy-shf.png",
+        "stock": 8,
+        "description": "Altamente articulado, incluye piezas para recrear escenas de la batalla en Onigashima."
+    },
+    {
+        "id": 17,
+        "name": "SH Figuarts Vegeta - Super Hero",
+        "category": "Figuras",
+        "anime": "Dragon Ball",
+        "price": 62000,
+        "image_url": "/images/dragon-ball/vegeta-shf.png",
+        "stock": 6,
+        "description": "Vegeta en su apariencia de la película Dragon Ball Super: Super Hero."
+    },
+    {
+        "id": 18,
+        "name": "SH Figuarts Naruto Uzumaki - The Jinchuriki Entrusted with Hope",
+        "category": "Figuras",
+        "anime": "Naruto",
+        "price": 68000,
+        "image_url": "/images/naruto/naruto-shf.png",
+        "stock": 10,
+        "description": "Nueva versión mejorada con articulaciones de última generación para poses dinámicas."
+    },
+    {
+        "id": 19,
+        "name": "SH Figuarts Ichigo Kurosaki - Bankai Tensa Zangetsu",
+        "category": "Figuras",
+        "anime": "Bleach",
+        "price": 75000,
+        "image_url": "/images/bleach/ichigo-shf.png",
+        "stock": 5,
+        "description": "De la saga Thousand-Year Blood War, con su icónica espada Tensa Zangetsu."
+    },
+    {
+        "id": 20,
+        "name": "Nendoroid Hatsune Miku - Fashion Country Ver.",
+        "category": "Figuras",
+        "anime": "Vocaloid",
+        "price": 58000,
+        "image_url": "/images/vocaloid/miku-nendo.png",
+        "stock": 12,
+        "description": "Miku en una vestimenta europea tradicional, adorable y con múltiples accesorios."
+    },
+    {
+        "id": 21,
+        "name": "SH Figuarts Satoru Gojo - Jujutsu Kaisen 0",
+        "category": "Figuras",
+        "anime": "Jujutsu Kaisen",
+        "price": 72000,
+        "image_url": "/images/jujutsu-kaisen/gojo-shf.png",
+        "stock": 4,
+        "description": "El hechicero más fuerte como se vio en la película precuela, incluye cabezas intercambiables."
+    },
+    {
+        "id": 22,
+        "name": "Figma Frieren",
+        "category": "Figuras",
+        "anime": "Frieren",
+        "price": 85000,
+        "image_url": "/images/frieren/frieren-figma.png",
+        "stock": 3,
+        "description": "La maga elfa con su báculo y efectos de magia. Increíble detalle y movilidad."
+    },
+    {
+        "id": 23,
+        "name": "SH Figuarts Tanjiro Kamado",
+        "category": "Figuras",
+        "anime": "Demon Slayer",
+        "price": 68000,
+        "image_url": "/images/demon-slayer/tanjiro-shf.png",
+        "stock": 7,
+        "description": "Tanjiro con su uniforme de cazador y la caja de Nezuko."
+    },
+    {
+        "id": 24,
+        "name": "SH Figuarts Momo Ayase",
+        "category": "Figuras",
+        "anime": "Dandadan",
+        "price": 65000,
+        "image_url": "/images/dandadan/momo-shf.png",
+        "stock": 9,
+        "description": "Figura articulada de Momo, capturando su estilo único y energía."
+    },
+    {
+        "id": 25,
+        "name": "Figma Marin Kitagawa",
+        "category": "Figuras",
+        "anime": "Dress Up Darling",
+        "price": 92000,
+        "image_url": "/images/dress-up-darling/marin-figma.png",
+        "stock": 2,
+        "description": "Incluye su bolso escolar y teléfono. Un must para los fans de Marin."
+    },
+    {
+        "id": 26,
+        "name": "Nendoroid Roxy Migurdia",
+        "category": "Figuras",
+        "anime": "Mushoku Tensei",
+        "price": 62000,
+        "image_url": "/images/mushoku-tensei/roxy-nendo.png",
+        "stock": 5,
+        "description": "La maestra de Rudeus con su báculo y sombrero removible."
+    },
+    {
+        "id": 27,
+        "name": "Figma Hitori Gotoh",
+        "category": "Figuras",
+        "anime": "Bocchi the Rock",
+        "price": 78000,
+        "image_url": "/images/bocchi-the-rock/hitori-figma.png",
+        "stock": 4,
+        "description": "Con su guitarra y caras de pánico icónicas del anime."
+    },
+    {
+        "id": 28,
+        "name": "SH Figuarts Denji / Chainsaw Man",
+        "category": "Figuras",
+        "anime": "Chainsaw Man",
+        "price": 74000,
+        "image_url": "/images/chainsaw-man/denji-shf.png",
+        "stock": 6,
+        "description": "Transformable en Chainsaw Man con piezas opcionales de sangre y efecto."
+    },
+    {
+        "id": 29,
+        "name": "SH Figuarts Anya Forger - School Uniform Ver.",
+        "category": "Figuras",
+        "anime": "Spy x Family",
+        "price": 55000,
+        "image_url": "/images/spyxfamily/anya-shf.png",
+        "stock": 15,
+        "description": "Waku waku! Incluye múltiples expresiones faciales divertidas."
     }
 ]
